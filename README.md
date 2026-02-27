@@ -144,4 +144,7 @@ server {
 ```
 
 ### Open WebUI configuration
-ToDo ;)
+Configure Open WebUI: so new (by EGroupware authenticated) users don't need to be confirmed:
+![image](doc/OpenWebUIConfig.png)
+Configure Open WebUI to use local Ollama and IONOS AI Hub through EGroupware's AiProxy:
+![image](doc/OpenWebUIConnections.png)
