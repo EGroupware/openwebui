@@ -148,3 +148,5 @@ Configure Open WebUI: so new (by EGroupware authenticated) users don't need to b
 ![image](doc/OpenWebUIConfig.png)
 Configure Open WebUI to use local Ollama and IONOS AI Hub through EGroupware's AiProxy:
 ![image](doc/OpenWebUIConnections.png)
+Configure SearXNG / web search in Open WebUI via searxng container / service
+![image](doc/OpenWebUIsearXNG.png)
