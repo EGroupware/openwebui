@@ -29,8 +29,10 @@ services:
     environment:
       - OLLAMA_BASE_URL=http://host.docker.internal:11434
       - WEBUI_URL=https://example.org:3000
-      - CORS_ALLOW_ORIGIN=https://example.org
+      - CORS_ALLOW_ORIGIN=https://example.org:3000
       - WEBUI_SECRET_KEY=<add some random secret here, to allow Open WebUI to encrypt it's stuff>
+      - ENABLE_WEBSOCKET=true                     
+      - WEBSOCKET_MANAGER=memory
       # Required for OIDC
       - OAUTH_CLIENT_ID=openwebui
       - OAUTH_CLIENT_SECRET=<the secret of the client you created>
