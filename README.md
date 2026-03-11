@@ -3,6 +3,7 @@
 ### ToDo's
 
 - [x] OpenIDConnect: automatic authentication for EGroupware users/sessions
+- [x] Enable EGroupware REST API to use and verify access token from OpenIDConnect
 - [ ] Create OpenAPI description for EGroupware REST API to make it available as tools
 - [ ] document the configuration steps inside Open WebUI
 
