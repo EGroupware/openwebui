@@ -4,12 +4,16 @@
 
 - [x] OpenIDConnect: automatic authentication for EGroupware users/sessions
 - [x] Enable EGroupware REST API to use and verify access token from OpenIDConnect
-- [ ] Create OpenAPI description for EGroupware REST API to make it available as tools
+- [x] Create OpenAPI description for EGroupware REST API to make it available as tools
+- [ ] Add and test OpenAPI description for all EGroupware apps supporting REST API
 - [ ] document the configuration steps inside Open WebUI
 
 ### OpenIDConnect integration
 Create the following OpenIDConnect client in your EGroupware:
+
 ![image](doc/OpenIDConnectClient.png)
+> You need to explicitly add 'CalDAV/CardDAV Sync' and all apps you want to access via tools as scope for the token!
+
 ![image](doc/OpenIDConnectClient2.png)
 I used their official icon from https://docs.openwebui.com/images/logo.png
 
@@ -149,7 +153,15 @@ server {
 ### Open WebUI configuration
 Configure Open WebUI: so new (by EGroupware authenticated) users don't need to be confirmed:
 ![image](doc/OpenWebUIConfig.png)
+
 Configure Open WebUI to use local Ollama and IONOS AI Hub through EGroupware's AiProxy:
 ![image](doc/OpenWebUIConnections.png)
+
 Configure SearXNG / web search in Open WebUI via searxng container / service
 ![image](doc/OpenWebUIsearXNG.png)
+
+Configure EGroupware REST API as tools for the AI Assitant
+![image](doc/EGroupwareRestApiTools.png)
+
+Tools need to be activated and `Functioncalling` set to `Native` for each new chat, until we figure out how to make that permanent
+![image](doc/EnableEGroupwareTools.png)
