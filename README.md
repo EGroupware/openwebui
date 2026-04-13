@@ -20,15 +20,15 @@ I used their official icon from https://docs.openwebui.com/images/logo.png
 ### docker-compose file
 This configuration was inspired by an [article in German heise.de](https://www.heise.de/ratgeber/Web-Suche-fuer-die-lokale-KI-So-schliessen-Ihre-LLMs-Wissensluecken-11116805.html
 )
+Add the following e.g. at the end of your `/etc/egroupware-docker/docker-compose.overwrite.yml` (without the `service:` which is already in the file!)
 ```docker compose
 services:
   # Open WebUI container
   openwebui:
     image: ghcr.io/open-webui/open-webui:main
     container_name: openwebui
-    # done in nginx.conf now to support https
-    #ports:
-    #  - "3000:8080"
+    ports:
+      - "127.0.0.1:3001:8080"
     volumes:
       - ./openwebui-data:/app/backend/data
     environment:
@@ -57,11 +57,17 @@ services:
     - "example.org:172.17.0.1"
     
   # Optional searxng container see heise.de article
+  # Important: after the first start of the container, you have to add in searxng/settings.yml the json format:
+  # search for formats: and add a new line with - json behind the - html line (same indention, and only spaces no tab!)
+  #   formats:
+  #  - html
+  #  - json
+  # AND restart the container: docker restart searxng
   searxng:
     image: searxng/searxng:latest
     container_name: searxng
-    ports:
-      - "3002:8080"
+  # ports:
+  #   - "3002:8080"
     volumes:
       - ./searxng:/etc/searxng
     restart: unless-stopped
@@ -69,6 +75,7 @@ services:
 
 ### Nginx proxy
 As Open WebUI can NOT run under a prefix, I run it on a different port 3000, using the same domain and certificate as EGroupware:
+`/etc/nginx/sites-enabled/egroupware-openwebui.conf`:
 ```nginx configuration
 server {
 	# ssl config (enable following line plus either include or ssl_certificate* line)
@@ -89,7 +96,7 @@ server {
 
     # API endpoints - streaming optimized
     location /api/ {
-        proxy_pass http://openwebui:8080;
+        proxy_pass http://127.0.0.1:3001;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -115,7 +122,7 @@ server {
 
     # WebSocket endpoints
     location ~ ^/(ws/|socket\.io/) {
-        proxy_pass http://openwebui:8080;
+        proxy_pass http://127.0.0.1:3001;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -132,7 +139,7 @@ server {
 
     # Static assets - CAN buffer and cache
     location /static/ {
-        proxy_pass http://openwebui:8080;
+        proxy_pass http://127.0.0.1:3001;
         proxy_buffering on;
         proxy_cache_valid 200 7d;
         add_header Cache-Control "public, max-age=604800, immutable";
@@ -140,7 +147,7 @@ server {
 
     # Default location
     location / {
-        proxy_pass http://openwebui:8080;
+        proxy_pass http://127.0.0.1:3001;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
