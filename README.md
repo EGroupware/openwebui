@@ -163,5 +163,9 @@ Configure SearXNG / web search in Open WebUI via searxng container / service
 Configure EGroupware REST API as tools for the AI Assitant
 ![image](doc/EGroupwareRestApiTools.png)
 
-Tools need to be activated and `Functioncalling` set to `Native` for each new chat, until we figure out how to make that permanent
+To permanetly activate the `EGroupware REST API` tool and change `Functioncalling` to `Native`, you have to do so for your used model.
+![image](doc/ModelFunctionCallsNative.png)
+![image](doc/ModelEnableEGroupwareTools.png)
+
+Or you need to activate the `EGroupware REST API` tool and set `Functioncalling` to `Native` for each new chat!
 ![image](doc/EnableEGroupwareTools.png)
