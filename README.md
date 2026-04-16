@@ -72,6 +72,18 @@ services:
       - ./searxng:/etc/searxng
     restart: unless-stopped
 ```
+> ### For development environments
+> in your compose.yaml also change your nginx service to forward port 3000. And do not expose openwebui port
+> ```docker compose
+> services:
+>	nginx:
+>		ports:
+>			- "3000:3000"
+>	openwebui:
+>		#ports: #comment out this line
+> ```
+
+
 
 ### Nginx proxy
 As Open WebUI can NOT run under a prefix, I run it on a different port 3000, using the same domain and certificate as EGroupware:
@@ -156,6 +168,9 @@ server {
     }
 }
 ```
+
+> ### For development environments
+> just add a second server block to your nginx.conf and replace all the `proxy_pass http://127.0.0.1:3001;` urls with `proxy_pass http://openwebui:8080`
 
 ### Open WebUI configuration
 Configure Open WebUI: so new (by EGroupware authenticated) users don't need to be confirmed:
