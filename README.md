@@ -20,7 +20,7 @@ I used their official icon from https://docs.openwebui.com/images/logo.png
 ### docker-compose file
 This configuration was inspired by an [article in German heise.de](https://www.heise.de/ratgeber/Web-Suche-fuer-die-lokale-KI-So-schliessen-Ihre-LLMs-Wissensluecken-11116805.html
 )
-Add the following e.g. at the end of your `/etc/egroupware-docker/docker-compose.overwrite.yml` (without the `service:` which is already in the file!)
+Add the following e.g. at the end of your `/etc/egroupware-docker/docker-compose.override.yml` (without the `service:` which is already in the file!)
 ```docker compose
 services:
   # Open WebUI container
