@@ -14,6 +14,8 @@ Create the following OpenIDConnect client in your EGroupware:
 ![image](doc/OpenIDConnectClient.png)
 > You need to explicitly add 'CalDAV/CardDAV Sync' and all apps you want to access via tools as scope for the token!
 
+> If you want to use the microphone and clipboard in OpenWebUI's iFrame you have to grant all 3 `iFrame (microphone|clipboard-(read|write))` scopes!
+
 ![image](doc/OpenIDConnectClient2.png)
 I used their official icon from https://docs.openwebui.com/images/logo.png
 
